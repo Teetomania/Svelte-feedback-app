@@ -1,13 +1,20 @@
 <script>
+  import { FeedbackStore } from '../stores';
   import Card from './Card.svelte';
   export let item;
+
+  const handleDelete = (itemId) => {
+    FeedbackStore.update((currentFeedback) => {
+      return currentFeedback.filter((item) => item.id != itemId);
+    });
+  };
 </script>
 
 <Card>
   <div class="num-display">
     {item.rating}
   </div>
-  <div class="colse">x</div>
+  <button class="colse" on:click={() => handleDelete(item.id)}>x</button>
   <p class="text-display">
     {item.text}
   </p>
@@ -34,5 +41,7 @@
     top: 10px;
     right: 20px;
     cursor: pointer;
+    border: none;
+    background: none;
   }
 </style>
